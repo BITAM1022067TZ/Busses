@@ -90,7 +90,7 @@ const Receipt = () => {
           <CheckCircle size={48} className="mx-auto mb-4" />
           <h2 className="text-2xl font-bold mb-2">Booking Confirmed!</h2>
           <p className="text-lg opacity-90">
-            Thank you for choosing ALIVOSEMA. Your tickets are ready.
+            Thank you for choosing DiraBasi. Your tickets are ready.
           </p>
         </div>
         
