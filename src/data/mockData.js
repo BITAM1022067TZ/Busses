@@ -15,7 +15,7 @@ export const stations = [
   {id: 9, name: 'Kwerekwe kivulin', routeId: 1, order:1 },
   {id: 10, name: 'Melinne', routeId: 1, order: 2 },
   {id: 11, name: 'Taveta', routeId: 1, order: 3 },
-  {id: 12, name: 'Mashine', routeId: 1, order: 4 },g
+  {id: 12, name: 'Mashine', routeId: 1, order: 4 },
   {id: 13, name: 'Melitano', routeId: 2, order: 1 },
   {id: 14, name: 'Jitimai', routeId: 2, order: 2 },
   {id: 15, name: 'Mtundani', routeId: 2, order: 3 },
