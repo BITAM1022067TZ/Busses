@@ -55,7 +55,7 @@ const BusAvailability = () => {
           ...bus,
           currentStationOrder: stationOrder,
           etaMinutes: calculateEtaMinutes(bus.estimatedArrival),
-          fare: 5000, // Default fare
+          fare: 1000, // Default fare
           type: 'standard' // Default type
         };
       });

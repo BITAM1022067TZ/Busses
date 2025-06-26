@@ -43,10 +43,10 @@ const SeatSelection = () => {
   useEffect(() => {
     const seatPrice = selectedSeats.reduce((total, seatId) => {
       const seat = seats.find(s => s.id === seatId);
-      return total + (seat?.type === 'premium' ? 6000 : 5000);
+      return total + (seat?.type === 'premium' ? 5000 : 1000);
     }, 0);
     
-    const luggageFee = luggageCount * 2000;
+    const luggageFee = luggageCount * 500;
     setTotalPrice(seatPrice + luggageFee);
   }, [selectedSeats, luggageCount, seats]);
   
@@ -164,9 +164,9 @@ const SeatSelection = () => {
                 <Info size={18} className="text-blue-600" />
               </div>
               <div className="ml-3 text-blue-700 text-sm">
-                <p>• Premium seats (front row) cost TZS 6,000</p>
-                <p>• Standard seats cost TZS 5,000</p>
-                <p>• Each luggage item costs TZS 2,000 (max 4 items)</p>
+                <p>• Premium seats (front row) cost TZS 5,000</p>
+                <p>• Standard seats cost TZS 3,000</p>
+                <p>• Each luggage item costs TZS 1,000 (max 4 items)</p>
                 <p>• Select seats for all passengers before proceeding</p>
               </div>
               <button
@@ -273,7 +273,7 @@ const SeatSelection = () => {
               
               <div className="text-center">
                 <div className="text-3xl font-bold">{luggageCount}</div>
-                <div className="text-sm text-gray-600">Items (TZS 2,000 each)</div>
+                <div className="text-sm text-gray-600">Items (TZS 500 each)</div>
               </div>
               
               <button
@@ -387,7 +387,7 @@ const SeatSelection = () => {
           <div className="space-y-2">
             {selectedSeats.map(seatId => {
               const seat = seats.find(s => s.id === seatId);
-              const price = seat?.type === 'premium' ? 6000 : 5000;
+              const price = seat?.type === 'premium' ? 5000 :1000;
               return (
                 <div key={seatId} className="flex justify-between">
                   <div className="text-gray-600">
@@ -403,7 +403,7 @@ const SeatSelection = () => {
                 <div className="text-gray-600">
                   Luggage ({luggageCount} items)
                 </div>
-                <div>TZS {(luggageCount * 2000).toLocaleString()}</div>
+                <div>TZS {(luggageCount * 500).toLocaleString()}</div>
               </div>
             )}
             

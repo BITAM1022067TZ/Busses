@@ -143,8 +143,8 @@ const Receipt = () => {
         <div className="bg-white rounded-xl shadow-lg border-2 border-green-500 mb-8 overflow-hidden">
           {/* Ticket Header */}
           <div className="bg-green-600 text-white p-4 text-center">
-            <div className="text-xl font-bold">ALIVOSEMA</div>
-            <div className="text-sm opacity-90">SUPERVISOR</div>
+            <div className="text-xl font-bold">ThankYou</div>
+            <div className="text-sm opacity-90">For Your Trust</div>
           </div>
           
           <div className="p-5">
@@ -190,7 +190,7 @@ const Receipt = () => {
                     
                     <div>
                       <div className="text-sm text-gray-600">Boarding Station</div>
-                      <div className="font-bold">{bookingData?.bus?.currentStation || 'Mji Central'}</div>
+                      <div className="font-bold">{bookingData?.bus?.currentStation || 'Tobo la pili'}</div>
                     </div>
                     
                     <div>
@@ -217,20 +217,20 @@ const Receipt = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span>Ticket Price:</span>
-                    <span>{formatCurrency(bookingData?.totalPrice - (bookingData?.luggageCount * 2000) || 5000)}</span>
+                    <span>{formatCurrency(bookingData?.totalPrice - (bookingData?.luggageCount * 500) || 1000)}</span>
                   </div>
                   
                   {bookingData?.luggageCount > 0 && (
                     <div className="flex justify-between text-sm">
                       <span>Luggage ({bookingData?.luggageCount}):</span>
-                      <span>{formatCurrency(bookingData?.luggageCount * 2000)}</span>
+                      <span>{formatCurrency(bookingData?.luggageCount * 500)}</span>
                     </div>
                   )}
                   
                   <div className="border-t border-gray-300 pt-2 mt-2">
                     <div className="flex justify-between font-bold">
                       <span>Total:</span>
-                      <span>{formatCurrency(bookingData?.totalPrice || 5000)}</span>
+                      <span>{formatCurrency(bookingData?.totalPrice ||1000)}</span>
                     </div>
                   </div>
                 </div>
@@ -271,8 +271,8 @@ const Receipt = () => {
                     <div className="font-medium text-gray-800">Route</div>
                     <div className="text-gray-600">
                       {bookingData?.bus?.routeId === 1 
-                        ? 'Mji to Suza' 
-                        : 'Suza to Mji'}
+                        ? 'Mjini to Suza' 
+                        : 'Suza to Mjini'}
                     </div>
                   </div>
                 </div>
@@ -378,19 +378,19 @@ const Receipt = () => {
               <div className="bg-gray-50 rounded-lg p-4">
                 <div className="flex justify-between mb-2">
                   <span className="text-gray-600">Subtotal:</span>
-                  <span>{formatCurrency(bookingData?.totalPrice - (bookingData?.luggageCount * 2000) || 5000)}</span>
+                  <span>{formatCurrency(bookingData?.totalPrice - (bookingData?.luggageCount * 500) ||1000)}</span>
                 </div>
                 
                 {bookingData?.luggageCount > 0 && (
                   <div className="flex justify-between mb-2">
                     <span className="text-gray-600">Luggage Fee:</span>
-                    <span>{formatCurrency(bookingData?.luggageCount * 2000)}</span>
+                    <span>{formatCurrency(bookingData?.luggageCount * 500)}</span>
                   </div>
                 )}
                 
                 <div className="flex justify-between font-bold text-lg pt-2 mt-2 border-t border-gray-300">
                   <span>Total Paid:</span>
-                  <span className="text-green-600">{formatCurrency(bookingData?.totalPrice || 5000)}</span>
+                  <span className="text-green-600">{formatCurrency(bookingData?.totalPrice || 1000)}</span>
                 </div>
               </div>
             </div>

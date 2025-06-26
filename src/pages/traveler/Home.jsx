@@ -103,17 +103,17 @@ const Home = () => {
         <div className="space-y-4">
           <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
             <div>
-              <h4 className="font-medium">Mji to Suza</h4>
+              <h4 className="font-medium">Mjini to Suza</h4>
               <p className="text-sm text-gray-500">Today, 14:30 • 2 seats</p>
             </div>
             <div className="text-green-600 font-semibold">TSh 10,000</div>
           </div>
           <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
             <div>
-              <h4 className="font-medium">Suza to Mji</h4>
+              <h4 className="font-medium">Suza to Mjini</h4>
               <p className="text-sm text-gray-500">Yesterday, 10:15 • 1 seat</p>
             </div>
-            <div className="text-green-600 font-semibold">TSh 5,000</div>
+            <div className="text-green-600 font-semibold">TSh 3,000</div>
           </div>
         </div>
       </div>

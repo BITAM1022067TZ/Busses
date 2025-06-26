@@ -6,7 +6,7 @@ const LocationUpdate = ({ currentLocation, setCurrentLocation }) => {
   const updateLocation = () => {
     setIsUpdating(true);
     setTimeout(() => {
-      const locations = ['Mji Central', 'Posta', 'Suza Terminal'];
+      const locations = ['Tobo la pili', 'Posta', 'Suza '];
       const randomLocation = locations[Math.floor(Math.random() * locations.length)];
       setCurrentLocation(randomLocation);
       setIsUpdating(false);

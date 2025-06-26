@@ -106,8 +106,8 @@ const TicketBooking = () => {
                       <h3 className="font-semibold text-gray-700">Route</h3>
                       <p className="text-gray-600">
                         {bookingData?.bus?.routeId === 1 
-                          ? 'Mji to Suza' 
-                          : 'Suza to Mji'}
+                          ? 'Mjini to Suza' 
+                          : 'Suza to Mjini'}
                       </p>
                     </div>
                   </div>
@@ -165,13 +165,13 @@ const TicketBooking = () => {
                   <div className="pt-4 border-t border-gray-200">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-gray-600">Seats:</span>
-                      <span>{formatCurrency(bookingData?.totalPrice - (bookingData?.luggageCount * 2000) || 0)}</span>
+                      <span>{formatCurrency(bookingData?.totalPrice - (bookingData?.luggageCount * 500) || 0)}</span>
                     </div>
                     
                     {bookingData?.luggageCount > 0 && (
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-gray-600">Luggage:</span>
-                        <span>{formatCurrency(bookingData?.luggageCount * 2000)}</span>
+                        <span>{formatCurrency(bookingData?.luggageCount * 500)}</span>
                       </div>
                     )}
                     
@@ -214,7 +214,7 @@ const TicketBooking = () => {
                         onChange={handleInputChange}
                         required
                         className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="John Doe"
+                        placeholder="You"
                       />
                     </div>
                     

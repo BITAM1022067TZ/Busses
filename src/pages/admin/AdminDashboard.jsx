@@ -48,8 +48,8 @@ const AdminDashboard = () => {
           <div className="border border-gray-200 rounded-lg p-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-semibold text-lg text-gray-800">Mji to Suza</h3>
-                <p className="text-gray-600">Mji → Suza</p>
+                <h3 className="font-semibold text-lg text-gray-800">Mjini to Suza</h3>
+                <p className="text-gray-600">Mjini → Suza</p>
               </div>
               <div className="flex space-x-2">
                 <button className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm">

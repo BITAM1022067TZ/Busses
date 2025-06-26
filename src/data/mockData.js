@@ -1,6 +1,6 @@
 export const routes = [
-  { id: 1, name: 'Mji to Suza', from: 'Mji', to: 'Suza' },
-  { id: 2, name: 'Suza to Mji', from: 'Suza', to: 'Mji' }
+  { id: 1, name: 'Mjini to Suza', from: 'Mjini', to: 'Suza' },
+  { id: 2, name: 'Suza to Mjini', from: 'Suza', to: 'Mjini' }
 ];
 
 export const stations = [
@@ -12,7 +12,7 @@ export const stations = [
   { id: 6, name: 'Jitini', routeId: 2, order: 2 },
   { id: 7, name: 'Kwanajim', routeId: 2, order: 3 },
   { id: 8, name: 'Kwerekwe kabla', routeId:2, order: 4 },
-  {id: 9, name: 'Kwerekwe kivulin', routeId: 1, order:1 },
+  {id: 9, name:  'Kwerekwe kivulin', routeId: 1, order:1 },
   {id: 10, name: 'Melinne', routeId: 1, order: 2 },
   {id: 11, name: 'Taveta', routeId: 1, order: 3 },
   {id: 12, name: 'Mashine', routeId: 1, order: 4 },
