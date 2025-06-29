@@ -64,7 +64,7 @@ const Home = () => {
               <div className="bg-purple-100 p-3 rounded-lg mr-4">
                 <CreditCard className="text-purple-600" size={24} />
               </div>
-              <h3 className="text-lg font-semibold">My Tickets</h3>
+              <h3 className="text-lg font-semibold">Booking receipts</h3>
             </div>
             <p className="text-gray-500 mb-4">
               View and manage your booked tickets

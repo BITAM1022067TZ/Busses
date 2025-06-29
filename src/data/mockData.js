@@ -4,29 +4,191 @@ export const routes = [
 ];
 
 export const stations = [
-  { id: 1, name: 'Tobo la pili', routeId: 1, order: 1 },
-  { id: 2, name: 'Kisonge', routeId: 1, order: 2 },
-  { id: 3, name: 'Posta', routeId: 1, order: 3 },
-  { id: 4, name: 'Mharitan', routeId: 1, order: 4 },
-  { id: 5, name: 'Sogea ', routeId: 2, order: 1 },
-  { id: 6, name: 'Jitini', routeId: 2, order: 2 },
-  { id: 7, name: 'Kwanajim', routeId: 2, order: 3 },
-  { id: 8, name: 'Kwerekwe kabla', routeId:2, order: 4 },
-  {id: 9, name:  'Kwerekwe kivulin', routeId: 1, order:1 },
-  {id: 10, name: 'Melinne', routeId: 1, order: 2 },
-  {id: 11, name: 'Taveta', routeId: 1, order: 3 },
-  {id: 12, name: 'Mashine', routeId: 1, order: 4 },
-  {id: 13, name: 'Melitano', routeId: 2, order: 1 },
-  {id: 14, name: 'Jitimai', routeId: 2, order: 2 },
-  {id: 15, name: 'Mtundani', routeId: 2, order: 3 },
-  {id: 16, name: 'Fuoni skul', routeId: 2, order: 4 },
-  {id: 17, name: 'Kisiman', routeId: 1, order: 1 },
-  {id: 18, name: 'Sokoni jumbi', routeId: 1, order: 2 },
-  {id: 19, name: 'Bango la mkoa', routeId: 1, order: 3 },
-  {id: 20, name: 'Juu ya kilima', routeId: 1, order: 4 },
-  {id: 21, name: 'Kontena', routeId: 2, order: 1 },
-  {id: 22, name: 'Kwabimdau', routeId: 2, order:2 },
-  {id: 23, name: 'Suza', routeId: 2, order: 3 }
+  { 
+    id: 1, 
+    name: "Tobo la pili",
+    routeId: 1, 
+    order: 1,
+    location:{latitude:-6.19486, longitude:39.29894},
+   },
+
+  {
+     id: 2,
+      name: "Kisonge", 
+      routeId: 1, 
+      order: 2 ,
+      location:{latitude:-6.19591, longitude:39.27255},
+    },
+
+  { 
+    id: 3,
+     name: "Kijangwani", 
+     routeId: 1,
+     order: 3,
+     location:{latitude:-6.19497, longitude:39.28591},
+    },
+
+  { 
+    id: 4, 
+    name: "Mharitan", 
+    routeId: 1, 
+    order: 4,
+    location:{latitude:-6.19469, longitude:39.269228},
+   },
+
+  {
+     id: 5, 
+     name: "Sogea", 
+     routeId: 2,
+     order: 1,
+     location:{latitude:-6.19588, longitude:39.25591},
+    },
+
+  {
+     id: 6, 
+     name: "Jitini", 
+     routeId: 2, 
+     order: 2 ,
+     location:{latitude:-6.19547, longitude:39.28152},
+   },
+
+  {
+     id: 7, 
+     name: "Kwanajim", 
+     routeId: 2,
+      order: 3,
+      location:{latitude:-6.19497, longitude:39.28588},
+    },
+
+  {
+     id: 8, 
+     name: "Kwerekwe kabla", 
+     routeId:2, 
+     order: 4,
+     location:{latitude:-6.19602, longitude:39.29725},
+    },
+
+  {
+    id: 9, 
+    name:  "Kwerekwe kivulin", 
+    routeId: 1, 
+    order:1,
+    location:{latitude:-6.18172, longitude:39.23075},
+  },
+
+  {
+    id: 10, 
+    name: "Melinne", 
+    routeId: 1, 
+    order: 2 ,
+    location:{latitude:--6.18332, longitude:39.23252},
+  },
+
+  {
+    id: 11,
+     name: "Taveta", 
+     routeId: 1, 
+     order: 3,
+     location:{latitude:-6.18527, longitude:39.23625},
+     },
+
+  {
+    id: 12, 
+    name: "Mashine", 
+    routeId: 1,
+     order: 4 ,
+     location:{latitude:-6.1868, longitude:39.23922},
+    },
+
+  {
+    id: 13, 
+    name: "Melitano", 
+    routeId: 2, 
+    order: 1 ,
+    location:{latitude:-6.17811, longitude:39.22744},
+  },
+
+  {
+    id: 14, 
+    name: "Jitimai", 
+    routeId: 2, 
+    order: 2,
+    location:{latitude:-6.18302, longitude:39.23255},
+    },
+
+  {
+    id: 15, 
+    name: "Mtundani", 
+    routeId: 2, 
+    order: 3 ,
+    location:{latitude:-6.17811, longitude:39.22741},
+   },
+
+  {
+    id: 16, 
+    name: "Fuoni skul", 
+    routeId: 2, 
+    order: 4 ,
+    location:{latitude:-6.18527, longitude:39.25286},
+   },
+
+  {
+    id: 17,
+     name: "Kisiman",
+      routeId: 1, 
+      order: 1,
+       location:{latitude:-6.19591, longitude:39.2725},
+     },
+
+  {
+    id: 18,
+     name: "Sokoni jumbi",
+      routeId: 1,
+       order: 2, 
+       location:{latitude:-6.19552, longitude:39.28183},
+      },
+
+  {
+    id: 19,
+     name: "Bango la mkoa", 
+     routeId: 1, 
+     order: 3,
+     location:{latitude:-6.19497, longitude:39.28588},
+    },
+
+  {
+    id: 20,
+     name: "Juu ya kilima",
+     routeId: 1, 
+     order: 4,
+     location:{latitude:-6.19602, longitude:39.27725},
+   },
+
+  {
+    id: 21,
+     name: "Kontena",
+      routeId: 2,
+      order: 1, 
+      location:{latitude:-6.19602, longitude:39.31058},
+    },
+
+  {
+    id: 22,
+     name: "Kwabimdau", 
+     routeId: 2,
+     order:2 ,
+     location:{latitude:-6.19527, longitude:39.30369},
+    
+    },
+
+  {
+    id: 23,
+     name: "Suza", 
+     routeId: 2, 
+     order: 3, 
+     location:{latitude:-6.19552, longitude:39.28183},
+
+    }
 ];
 
 export const buses = [
