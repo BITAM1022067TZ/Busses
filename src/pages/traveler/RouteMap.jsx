@@ -6,7 +6,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { routes, stations, buses } from '../../data/mockData';
 
-// Fix for Leaflet marker icons in React
+// Fix for Leaflet marker icons
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
@@ -19,15 +19,15 @@ const RouteMap = () => {
   const [activeRoute, setActiveRoute] = useState(null);
   const [activeBus, setActiveBus] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [mapCenter, setMapCenter] = useState([-6.8167, 39.2833]); // Default to Dar es Salaam
-  const [zoomLevel, setZoomLevel] = useState(13);
+  const [mapCenter, setMapCenter] = useState([-6.19486, 39.29894]); // Default to Tobo la pili station
+  const [zoomLevel, setZoomLevel] = useState(14);
   const mapRef = useRef(null);
   
   // Simulate real-time updates
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date());
-    }, 30000); // Update every 30 seconds
+    }, 30000);
     
     return () => clearInterval(interval);
   }, []);
@@ -41,36 +41,42 @@ const RouteMap = () => {
     }
   }, [selectedRoute]);
   
-  // Set a random active bus for demonstration
+  // Set active bus and center map
   useEffect(() => {
     if (buses.length > 0) {
       const randomBus = buses[Math.floor(Math.random() * buses.length)];
       setActiveBus(randomBus);
-      
-      // Center map on the active bus
-      if (randomBus.currentLocation) {
-        setMapCenter([randomBus.currentLocation.lat, randomBus.currentLocation.lng]);
-      }
     }
   }, []);
   
-  // Get stations for the active route
-  const routeStations = activeRoute 
-    ? stations
-        .filter(s => s.routeId === activeRoute.id)
-        .sort((a, b) => a.order - b.order)
-        .map(station => {
-          // Generate mock coordinates based on station order
-          return {
-            ...station,
-            position: [
-              -6.8167 + (0.01 * station.order),
-              39.2833 - (0.01 * station.order)
-            ]
-          };
-        })
-    : [];
+  // Group stations by route and sort by order
+  const getStationsForRoute = (routeId) => {
+    return stations
+      .filter(s => s.routeId === routeId)
+      .sort((a, b) => a.order - b.order)
+      .map(station => {
+        // Fix any data inconsistencies
+        const fixedLocation = station.id === 10 
+          ? { ...station.location, latitude: -6.18332 } 
+          : station.location;
+        
+        return {
+          ...station,
+          position: [fixedLocation.latitude, fixedLocation.longitude]
+        };
+      });
+  };
   
+  // Get stations for active route
+  const routeStations = activeRoute ? getStationsForRoute(activeRoute.id) : [];
+  
+  // Set map center to first station when route changes
+  useEffect(() => {
+    if (routeStations.length > 0) {
+      setMapCenter(routeStations[0].position);
+    }
+  }, [activeRoute, routeStations]);
+
   // Generate polyline for the route
   const routePolyline = routeStations.map(station => station.position);
   
@@ -79,18 +85,56 @@ const RouteMap = () => {
     return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
   
+  // Calculate distance between two points (Haversine formula)
+  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const R = 6371; // Earth radius in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c; // Distance in km
+  };
+  
   // Calculate estimated time to station
-  const calculateETA = (stationOrder) => {
-    if (!activeBus) return 'N/A';
+  const calculateETA = (stationPosition) => {
+    if (!activeBus || !activeBus.currentLocation) return 'N/A';
     
-    const timePerStation = 15; // minutes
-    const timeDifference = Math.abs(stationOrder - activeBus.passengerCount) * timePerStation;
+    const busPosition = [activeBus.currentLocation.lat, activeBus.currentLocation.lng];
+    const distance = calculateDistance(
+      busPosition[0], busPosition[1],
+      stationPosition[0], stationPosition[1]
+    );
+    
+    // Average bus speed in km/h
+    const averageSpeed = 30;
+    const timeHours = distance / averageSpeed;
+    const timeMinutes = Math.round(timeHours * 60);
     
     const eta = new Date(currentTime);
-    eta.setMinutes(eta.getMinutes() + timeDifference);
+    eta.setMinutes(eta.getMinutes() + timeMinutes);
     
-    return formatTime(eta);
+    return `${formatTime(eta)} (${timeMinutes} min)`;
   };
+  
+  // Find next station for active bus
+  const getNextStation = () => {
+    if (!activeBus || !activeRoute) return null;
+    
+    const currentStationIndex = routeStations.findIndex(
+      station => station.name === activeBus.currentStation
+    );
+    
+    if (currentStationIndex === -1 || currentStationIndex >= routeStations.length - 1) {
+      return null;
+    }
+    
+    return routeStations[currentStationIndex + 1];
+  };
+  
+  const nextStation = getNextStation();
   
   // Custom bus icon
   const busIcon = L.divIcon({
@@ -163,7 +207,7 @@ const RouteMap = () => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
               
-              {/* Route Polyline */}
+              {/* Route Polyline - Drawn in station order */}
               {routePolyline.length > 1 && (
                 <Polyline 
                   positions={routePolyline} 
@@ -176,7 +220,7 @@ const RouteMap = () => {
               {/* Stations */}
               {routeStations.map((station) => (
                 <Marker 
-                  key={station.id} 
+                  key={`${station.id}-${station.routeId}`} 
                   position={station.position}
                   icon={L.icon({
                     iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
@@ -187,10 +231,12 @@ const RouteMap = () => {
                 >
                   <Popup>
                     <div className="font-medium">{station.name}</div>
-                    <div className="text-sm text-gray-600">Station {station.order}</div>
+                    <div className="text-sm text-gray-600">
+                      Station {station.order} on Route {station.routeId}
+                    </div>
                     {activeBus && (
                       <div className="mt-1 text-xs text-blue-600">
-                        Bus ETA: {calculateETA(station.order)}
+                        Bus ETA: {calculateETA(station.position)}
                       </div>
                     )}
                   </Popup>
@@ -209,7 +255,10 @@ const RouteMap = () => {
                       <div>Route: {activeRoute?.name}</div>
                       <div>Status: <span className="text-green-600">Active</span></div>
                       <div>Passengers: {activeBus.passengerCount}/{activeBus.totalSeats}</div>
-                      <div>Next Station: {activeBus.currentStation}</div>
+                      <div>Current Station: {activeBus.currentStation}</div>
+                      {nextStation && (
+                        <div>Next Station: {nextStation.name}</div>
+                      )}
                     </div>
                   </Popup>
                 </Marker>
@@ -260,6 +309,15 @@ const RouteMap = () => {
                 <p className="text-blue-600">
                   <span className="font-medium">Stations:</span> {routeStations.length}
                 </p>
+                <p className="text-blue-600 mt-2">
+                  <span className="font-medium">Station Order:</span>
+                  <ol className="list-decimal list-inside mt-1 text-sm">
+                    {routeStations.slice(0, 5).map((station, index) => (
+                      <li key={index}>{station.name}</li>
+                    ))}
+                    {routeStations.length > 5 && <li>...{routeStations.length - 5} more</li>}
+                  </ol>
+                </p>
               </div>
               
               <div className="bg-green-50 p-4 rounded-lg">
@@ -273,6 +331,12 @@ const RouteMap = () => {
                 <p className="text-green-600">
                   <span className="font-medium">Per Station:</span> 10-15 minutes
                 </p>
+                <div className="mt-3">
+                  <h4 className="font-medium text-green-700 mb-1">Route Path</h4>
+                  <div className="text-sm text-green-600 bg-green-100 p-2 rounded">
+                    {routeStations.map(s => s.name).join(' → ')}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -302,6 +366,9 @@ const RouteMap = () => {
                     {activeBus.status}
                   </span>
                 </p>
+                <p className="text-purple-600 mt-2">
+                  <span className="font-medium">Current Station:</span> {activeBus.currentStation}
+                </p>
               </div>
               
               <div className="bg-yellow-50 p-4 rounded-lg">
@@ -318,6 +385,14 @@ const RouteMap = () => {
                     {activeBus.passengerCount}/{activeBus.totalSeats}
                   </span>
                 </p>
+                <div className="mt-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div 
+                      className="bg-yellow-600 h-2.5 rounded-full" 
+                      style={{ width: `${(activeBus.passengerCount / activeBus.totalSeats) * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
               </div>
               
               <div className="bg-blue-50 p-4 rounded-lg">
@@ -325,18 +400,24 @@ const RouteMap = () => {
                   <MapPin className="mr-2" size={18} />
                   Next Station
                 </h3>
-                {routeStations.length > 0 && activeBus.passengerCount < routeStations.length && (
+                {nextStation ? (
                   <>
                     <p className="text-blue-600">
-                      <span className="font-medium">Station:</span> {routeStations[activeBus.passengerCount]?.name}
+                      <span className="font-medium">Station:</span> {nextStation.name}
                     </p>
                     <p className="text-blue-600">
-                      <span className="font-medium">ETA:</span> {calculateETA(activeBus.passengerCount + 1)}
+                      <span className="font-medium">ETA:</span> {calculateETA(nextStation.position)}
+                    </p>
+                    <p className="text-blue-600 text-sm mt-1">
+                      Order: {nextStation.order} on route
                     </p>
                   </>
-                )}
-                {routeStations.length > 0 && activeBus.passengerCount >= routeStations.length && (
-                  <p className="text-blue-600 font-medium">Completed route</p>
+                ) : (
+                  <p className="text-blue-600 font-medium">
+                    {activeBus.currentStation === routeStations[routeStations.length - 1]?.name
+                      ? "At final station"
+                      : "Heading to final destination"}
+                  </p>
                 )}
               </div>
             </div>
