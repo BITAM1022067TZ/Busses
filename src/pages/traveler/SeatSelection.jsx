@@ -165,8 +165,8 @@ const SeatSelection = () => {
               </div>
               <div className="ml-3 text-blue-700 text-sm">
                 <p>• Premium seats (front row) cost TZS 5,000</p>
-                <p>• Standard seats cost TZS 3,000</p>
-                <p>• Each luggage item costs TZS 1,000 (max 4 items)</p>
+                <p>• Standard seats cost TZS 1,000</p>
+                <p>• Each luggage item costs TZS 500 (max 4 items)</p>
                 <p>• Select seats for all passengers before proceeding</p>
               </div>
               <button
