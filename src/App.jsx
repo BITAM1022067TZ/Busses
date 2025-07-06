@@ -22,7 +22,7 @@ import RouteMap from './pages/traveler/RouteMap';
 // Admin Pages
 import AdminDashboard from './pages/admin/AdminDashboard';
 import StationsTab from './pages/admin/StationsTab';
-import ManageRoutes from './pages/admin/ManageRoutes';
+import ManageRoutes from './pages/admin/ManageRoute';
 import ManageStations from './pages/admin/ManageStations';
 import ManageBuses from './pages/admin/ManageBuses';
 import ManageUsers from './pages/admin/ManageUsers';
