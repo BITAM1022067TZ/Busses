@@ -16,14 +16,14 @@ const Navbar = ({ userType }) => {
     if (path.includes('ticket-booking')) return 'Book Ticket';
     if (path.includes('receipt')) return 'Your Ticket';
     if (path.includes('route-map')) return 'Route Map';
-    return 'Traveler Dashboard';
+    return `${userType} Dashboard`;
   };
 
   return (
     <nav className="bg-white shadow-md py-4 px-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          {location.pathname !== '/dashboard/home' && (
+          {location.pathname !== 'dashboard/home' || location.pathname !== '/admin' && (
             <button
               onClick={() => navigate(-1)}
               className="p-2 rounded-full hover:bg-gray-100 mr-2"
